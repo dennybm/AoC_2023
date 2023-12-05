@@ -11,21 +11,48 @@ namespace ConsoleApp1.Day5
     {
         public override string SolvePart2()
         {
-            long result = int.MaxValue;
-            Almanac Almanac = ReadAlamanc();
+            long result = long.MaxValue;
+            Almanac almanac = ReadAlamanc();
 
-            foreach (long seed in Almanac.Seeds)
+            for (int i = 0; i + 1 < almanac.Seeds.Count; i = i + 2)
             {
-                long lastResource = Almanac.ConvertSeed(seed);
+                List<long> seeds = GetSeeds(almanac.Seeds[i], almanac.Seeds[i + 1]);
 
-                if (lastResource < result)
+                for (int j = 0; j < seeds.Count; j++)
                 {
-                    Console.WriteLine($"Seed {seed} is the new closest, with location {lastResource}");
-                    result = lastResource;
+                    if (j%1000000 == 0)
+                    {
+                        Console.WriteLine($"Checked {j} of {seeds.Count}");
+                    }
+
+                    long seed = seeds[j];
+                    long lastResource = almanac.ConvertSeed(seed);
+
+                    if (lastResource < result)
+                    {
+                        Console.WriteLine($"Seed {seed} is the new closest, with location {lastResource}");
+                        result = lastResource;
+                    }
                 }
+
+                Console.WriteLine($"Finished counting {almanac.Seeds[i]} range");
             }
 
             return result.ToString();
+        }
+
+        private static List<long> GetSeeds(long start, long length)
+        {
+            Console.WriteLine($"Getting more seeds: Seed start {start}, range length {length}");
+
+            List<long> result = new List<long>();
+
+            for (long i = start; i < start + length; i++)
+            {
+                result.Add(i);
+            }
+
+            return result;
         }
     }
 }

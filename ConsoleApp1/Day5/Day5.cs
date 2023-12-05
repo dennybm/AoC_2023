@@ -19,13 +19,18 @@ namespace ConsoleApp1.Day5
             foreach (long seed in almanac.Seeds)
             {
                 long lastResource = almanac.ConvertSeed(seed);
-                result = lastResource < result ? lastResource : result;
+
+                if (lastResource < result)
+                {
+                    Console.WriteLine($"Seed {seed} is the new closest, with location {lastResource}");
+                    result = lastResource;
+                }
             }
 
             return result.ToString();
         }
 
-        private Almanac ReadAlamanc(int part = 0)
+        private Almanac ReadAlamanc(int part = 1)
         {
             Almanac Almanac = new Almanac();
 
@@ -46,6 +51,5 @@ namespace ConsoleApp1.Day5
 
             return Almanac;
         }
-
     }
 }
