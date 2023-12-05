@@ -1,17 +1,47 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using ConsoleApp1;
 using ConsoleApp1.Day1;
+using ConsoleApp1.Day2;
 using ConsoleApp1.Day3;
+using ConsoleApp1.Day4;
 
 Console.WriteLine("Hello, World!");
 
-// DayBase Day = new Day1();
-//DayBase Day = new Day2();
+Dictionary<string, DayBase> days = new Dictionary<string, DayBase>()
+{
+    {"1", new Day1() },
+    {"2", new Day2() },
+    {"3", new Day3() },
+    {"4", new Day4() },
+};
 
-DayBase Day = new Day3();
+Console.WriteLine("Enter day you would like to solve:");
+string? dayRequested = Console.ReadLine();
 
-string result = Day.GetSolution();
+if (!string.IsNullOrEmpty(dayRequested) && days.ContainsKey(dayRequested))
+{
+    Console.WriteLine("Would you like part 1 or 2?");
+    string? partRequested = Console.ReadLine();
 
-Console.WriteLine("result: ");
-Console.WriteLine(result);
+    if (!string.IsNullOrEmpty(partRequested) && (partRequested == "1" || partRequested == "2"))
+    {
+        string result = partRequested == "1" ?
+            days[dayRequested].Solve() :
+            days[dayRequested].SolvePart2();
+
+        Console.WriteLine("result: ");
+        Console.WriteLine(result);
+    }
+    else
+    {
+        Console.WriteLine("Part not recognised, please only enter the numbers 1 or 2.");
+    }
+
+
+}
+else
+{
+    Console.WriteLine("Day not found, please enter a single number, ie \"1\"");
+}
+
 Console.ReadLine();

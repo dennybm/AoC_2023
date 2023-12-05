@@ -8,7 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1.Day1
+namespace ConsoleApp1.Day2
 {
     internal class Day2 : DayBase
     {
@@ -16,6 +16,36 @@ namespace ConsoleApp1.Day1
         int[] parameters = new int[3] { 12, 13, 14 };
 
         public override string Solve()
+        {
+            int result = 0;
+            int count = 0;
+
+            if (File.Exists(filePath))
+            {
+                // Open the file with a StreamReader
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    string? line;
+
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        result += ProcessLine(line);
+
+                        Console.WriteLine($"lines checked {++count} | Running total {result}");
+                    }
+                }
+
+                Console.WriteLine("File processing completed.");
+            }
+            else
+            {
+                Console.WriteLine("The file does not exist.");
+            }
+
+            return result.ToString();
+        }
+
+        public override string SolvePart2()
         {
             int result = 0;
             int count = 0;

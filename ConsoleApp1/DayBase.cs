@@ -15,5 +15,7 @@ namespace ConsoleApp1
         }
 
         public abstract string Solve();
+
+        public abstract string SolvePart2();
     }
 }

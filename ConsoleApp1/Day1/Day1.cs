@@ -26,6 +26,36 @@ namespace ConsoleApp1.Day1
 
                     while ((line = reader.ReadLine()) != null)
                     {
+                        result += GetLineValue(line);
+
+                        Console.WriteLine($"lines checked {++count} | Running total {result}");
+                    }
+                }
+
+                Console.WriteLine("File processing completed.");
+            }
+            else
+            {
+                Console.WriteLine("The file does not exist.");
+            }
+
+            return result.ToString();
+        }
+
+        public override string SolvePart2()
+        {
+            int result = 0;
+            int count = 0;
+
+            if (File.Exists(filePath))
+            {
+                // Open the file with a StreamReader
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    string? line;
+
+                    while ((line = reader.ReadLine()) != null)
+                    {
                         result += GetLineValuePart2(line);
 
                         Console.WriteLine($"lines checked {++count} | Running total {result}");

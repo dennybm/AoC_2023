@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1.Day3
 {
-    internal static class Utils3
+    internal static partial class Utils3
     {
         public static int GetPartNumberSum(string[] engineSchematic)
         {

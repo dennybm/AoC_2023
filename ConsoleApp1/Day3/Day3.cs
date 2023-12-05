@@ -32,5 +32,27 @@ namespace ConsoleApp1.Day3
 
             return result;
         }
+
+        public override string SolvePart2()
+        {
+            string result = string.Empty;
+
+            if (File.Exists(filePath))
+            {
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    engineSchematic = File.ReadAllLines(filePath);
+                }
+            }
+            else
+            {
+                Console.WriteLine("The file does not exist.");
+            }
+
+            // result = Utils3.GetPartNumberSum(engineSchematic).ToString();
+            result = Utils3.GetGearNumberSum(engineSchematic).ToString();
+
+            return result;
+        }
     }
 }
