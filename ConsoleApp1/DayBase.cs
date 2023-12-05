@@ -14,6 +14,25 @@ namespace ConsoleApp1
             return result;
         }
 
+        public string[] ReadAllFile(string filePath)
+        {
+            string[] result = new string[] { "" };
+
+            if (File.Exists(filePath))
+            {
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    result = File.ReadAllLines(filePath);
+                }
+            }
+            else
+            {
+                Console.WriteLine("The file does not exist.");
+            }
+
+            return result;
+        }
+
         public abstract string Solve();
 
         public abstract string SolvePart2();

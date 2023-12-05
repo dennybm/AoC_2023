@@ -4,6 +4,7 @@ using ConsoleApp1.Day1;
 using ConsoleApp1.Day2;
 using ConsoleApp1.Day3;
 using ConsoleApp1.Day4;
+using ConsoleApp1.Day5;
 
 Console.WriteLine("Hello, World!");
 
@@ -13,6 +14,7 @@ Dictionary<string, DayBase> days = new Dictionary<string, DayBase>()
     {"2", new Day2() },
     {"3", new Day3() },
     {"4", new Day4() },
+    {"5", new Day5() },
 };
 
 Console.WriteLine("Enter day you would like to solve:");
@@ -36,8 +38,6 @@ if (!string.IsNullOrEmpty(dayRequested) && days.ContainsKey(dayRequested))
     {
         Console.WriteLine("Part not recognised, please only enter the numbers 1 or 2.");
     }
-
-
 }
 else
 {

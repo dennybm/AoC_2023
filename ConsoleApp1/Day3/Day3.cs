@@ -16,17 +16,7 @@ namespace ConsoleApp1.Day3
         {
             string result = string.Empty;
 
-            if (File.Exists(filePath))
-            {
-                using (StreamReader reader = new StreamReader(filePath))
-                {
-                    engineSchematic = File.ReadAllLines(filePath);
-                }
-            }
-            else
-            {
-                Console.WriteLine("The file does not exist.");
-            }
+            engineSchematic = base.ReadAllFile(filePath);
 
             result = Utils3.GetPartNumberSum(engineSchematic).ToString();
 
