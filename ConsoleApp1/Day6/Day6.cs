@@ -8,7 +8,7 @@ using static ConsoleApp1.StringUtils;
 
 namespace ConsoleApp1.Day6
 {
-    internal class Day6 : DayBase
+    internal partial class Day6 : DayBase
     {
         string filePath = "D:\\Projects\\AoC_2023\\AoC_2023\\ConsoleApp1\\Day6\\inputs.txt";
 
@@ -45,11 +45,6 @@ namespace ConsoleApp1.Day6
             }
 
             return result.ToString();
-        }
-
-        public override string SolvePart2()
-        {
-            throw new NotImplementedException();
         }
     }
 }
