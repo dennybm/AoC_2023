@@ -14,6 +14,16 @@ namespace ConsoleApp1.Day7
 
         public override string Solve()
         {
+            return this.Solve(1);
+        }
+
+        public override string SolvePart2()
+        {
+            return this.Solve(2);
+        }
+
+        private string Solve(int part)
+        {
             int result = 0;
 
             if (File.Exists(filePath))
@@ -23,9 +33,19 @@ namespace ConsoleApp1.Day7
                 {
                     string? line;
 
-                    while ((line = reader.ReadLine()) != null)
+                    if (part == 1)
                     {
-                        this.hands.Add(GetHandFromLine(line));
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            this.hands.Add(GetHandFromLine(line));
+                        }
+                    }
+                    else
+                    {
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            this.hands.Add(GetHandFromLinePart2(line));
+                        }
                     }
                 }
 
@@ -48,7 +68,6 @@ namespace ConsoleApp1.Day7
 
             return result.ToString();
         }
-
         private Hand GetHandFromLine(string line)
         {
             // line
@@ -59,6 +78,23 @@ namespace ConsoleApp1.Day7
             {
                 Cards = lineSplit[0],
                 Bid = int.Parse(lineSplit[1]),
+                Score = HandUtils.GetScore(lineSplit[0])
+            };
+
+            return hand;
+        }
+
+        private Hand GetHandFromLinePart2(string line)
+        {
+            // line
+            // ATAAA 513
+            string[] lineSplit = line.Split(' ');
+
+            Hand hand = new Hand
+            {
+                Cards = lineSplit[0],
+                Bid = int.Parse(lineSplit[1]),
+                Score = HandUtils.GetScore(lineSplit[0], 2)
             };
 
             return hand;

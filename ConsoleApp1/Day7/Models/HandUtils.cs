@@ -9,7 +9,7 @@ namespace ConsoleApp1.Day7.Models
 {
     internal static class HandUtils
     {
-        public static int GetScore(string cards)
+        public static int GetScore(string cards, int part = 1)
         {
             int result = 0;
 
@@ -31,17 +31,48 @@ namespace ConsoleApp1.Day7.Models
                         cardValues[i] = 10;
                         break;
                     case 'J':
-                        cardValues[i] = 9;
+                        if (part == 1)
+                        {
+                            cardValues[i] = 9;
+                        }
+                        else
+                        {
+                            cardValues[i] = 0;
+                        }
+
                         break;
                     case 'T':
-                        cardValues[i] = 8;
+                        if (part == 1)
+                        {
+                            cardValues[i] = 8;
+                        }
+                        else
+                        {
+                            cardValues[i] = 9;
+                        }
+                        
                         break;
                     default:
-                        cardValues[i] = int.Parse(card.ToString()) - 2;
+                        if (part == 1)
+                        {
+                            cardValues[i] = int.Parse(card.ToString()) - 2;
+                        }
+                        else
+                        {
+                            cardValues[i] = int.Parse(card.ToString()) - 1;
+                        }
                         break;
                 }
             }
-            cardValues[0] = GetHandCategory(cards);
+
+            if (part == 1)
+            {
+                cardValues[0] = GetHandCategory(cards);
+            }
+            else
+            {
+                cardValues[0] = GetHandCategoryPart2(cards);
+            }
 
             // Convert to base 13.
             // [ 0, 1, 2, 3, 4, 5]
@@ -102,5 +133,116 @@ namespace ConsoleApp1.Day7.Models
 
             return result;
         }
+
+       /// <summary>
+       /// Gets hand category.
+       /// </summary>
+       /// <param name="cards">Cards in the hand</param>
+       /// <returns>
+       /// 6: 5 of a kind
+       /// 5: 4 of a kind
+       /// 4: Full house
+       /// 3: Three of a kind
+       /// 2: Two pair
+       /// 1: One pair
+       /// 0: High card
+       /// </returns>
+        public static int GetHandCategoryPart2(string cards)
+        {
+            int result = 0;
+
+            var groups = cards.GroupBy(c => c);
+
+            int GroupCount = groups.Count();
+
+            switch (GroupCount)
+            {
+                // all cards the same, 5 of a kind
+                case 1:
+                    result = 6;
+                    break;
+
+                // two groups of cards, either full house or four of a kind
+                case 2:
+                    int firstGroupCount = groups.First().Count();
+                    result = firstGroupCount == 1 || firstGroupCount == 4 ? 5 : 4;
+
+                    // in either case, if any card is a 'J' then the hand can become 5 of a kind.
+                    if (cards.Contains('J'))
+                    {
+                        result = 6;
+                    }
+                    break;
+
+                // three groups of cards, either two pair or three of a kind
+                case 3:
+                    foreach (var group in groups)
+                    {
+                        if (group.Count() == 3)
+                        {
+                            if (cards.Contains('J'))
+                            {
+                                // if a group of 3 is found, and the hand contains a J, then make four of a kind.
+                                result = 5;
+                            }
+                            else
+                            {
+                                result = 3;
+                            }
+
+                            break;
+                        }
+                    }
+
+                    if (result == 0)
+                    {
+                        // Two pairs
+                        if (cards.Contains('J'))
+                        {
+                            if (groups.First(group => group.Key == 'J').Count() == 2)
+                            {
+                                // if J's are one of the pairs, make four of a kind
+                                result = 5;
+                            }
+                            else
+                            {
+                                // J is not one of the pairs, make full house
+                                result = 4;
+                            }
+                        }
+                        else
+                        {
+                            result = 2;
+                        }
+
+                        break;
+                    }
+                    break;
+
+                // four groups of cards, there is one pair.
+                case 4:
+                    result = 1;
+
+                    if (cards.Contains('J'))
+                    {
+                        // make pair of J's another to get 3-o-a-k, or make a J the pair to make 3-o-a-k
+                        result = 3;
+                    }
+
+                    break;
+
+                default:
+                    if (cards.Contains('J'))
+                    {
+                        result = 1;
+                    }
+                    break;
+            }
+
+            Console.WriteLine($"Hand {cards} has category: {result}");
+
+            return result;
+        }
+
     }
 }

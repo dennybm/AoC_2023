@@ -12,12 +12,6 @@ namespace ConsoleApp1.Day7.Models
 
         public int Bid { get; set; }
 
-        public int Score
-        {
-            get => this.score ?? HandUtils.GetScore(this.Cards);
-            set => this.score = value;
-        }
-
-        private int? score;
+        public int Score { get; set; }
     }
 }
