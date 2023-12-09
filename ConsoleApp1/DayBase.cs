@@ -30,7 +30,37 @@ namespace ConsoleApp1
                 Console.WriteLine("The file does not exist.");
             }
 
+
+
             return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="process"></param>
+        public void ProcessEachLine(string filePath, Action<string> process)
+        {
+            if (File.Exists(filePath))
+            {
+                // Open the file with a StreamReader
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    string? line;
+
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        process(line);
+                    }
+                }
+
+                Console.WriteLine("File processing completed.");
+            }
+            else
+            {
+                Console.WriteLine("The file does not exist.");
+            }
         }
 
         public abstract string Solve();
