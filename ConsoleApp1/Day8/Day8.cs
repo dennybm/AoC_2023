@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1.Day8
 {
-    internal class Day8 : DayBase
+    internal partial class Day8 : DayBase
     {
         string filePath = "D:\\Projects\\AoC_2023\\AoC_2023\\ConsoleApp1\\Day8\\inputs.txt";
 
@@ -97,6 +97,7 @@ namespace ConsoleApp1.Day8
             directions?.Add(key, (left, right, new int[1] {int.MaxValue}));
         }
 
+        // This does work, however the answer for the inputs is 21,366,921,060,721 (approx 21 trillion), so would probably need a super computer to solve.
         public override string SolvePart2()
         {
             string result;
