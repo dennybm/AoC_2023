@@ -68,16 +68,17 @@ namespace ConsoleApp1.Day8
                     directions[location] = (directions[location].left, directions[location].right, indexesChecked);
                 }
 
+                string locationOld = location;
+
                 if (instructions[distance %  instructions.Length] == 'L')
                 {
-                    string locationOld = location;
                     location = directions[location].left;
                     Console.WriteLine($"Going {instructions[distance % instructions.Length]} from {locationOld} instruction to {location}");
                 }
                 else
                 {
                     location = directions[location].right;
-                    Console.WriteLine($"Taking {instructions[distance % instructions.Length]} instruction to {location}");
+                    Console.WriteLine($"Going {instructions[distance % instructions.Length]} from {locationOld} instruction to {location}");
                 }
 
                 distance++;
@@ -98,7 +99,84 @@ namespace ConsoleApp1.Day8
 
         public override string SolvePart2()
         {
-            throw new NotImplementedException();
+            string result;
+
+            if (File.Exists(filePath))
+            {
+                // Open the file with a StreamReader
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    string? line;
+                    directions = new();
+
+                    // Read first line and skip over empty line seperating instructions and directions.
+                    line = reader.ReadLine();
+                    instructions = line;
+                    line = reader.ReadLine();
+
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        ProcessLine(line);
+                    }
+                }
+
+                Console.WriteLine("File processing completed.");
+            }
+            else
+            {
+                Console.WriteLine("The file does not exist.");
+            }
+
+            result = this.MeasureDistanceToZZZPart2(instructions, directions).ToString();
+
+            return result.ToString();
+        }
+
+        private int MeasureDistanceToZZZPart2(string? instructions, Dictionary<string, (string left, string right, int[] indexesChecked)>? directions)
+        {
+            int distance = 0;
+
+
+            var locationNodes = directions.Where(direction => direction.Key.Last() == 'A').Select(direction => direction.Key).ToArray();
+
+            Console.WriteLine("Starting Nodes: ");
+            foreach (var node in locationNodes)
+            {
+                Console.Write(node + " ");
+            }
+
+            while (!this.AllNodesEndWithZ(locationNodes))
+            {
+                if (instructions[distance % instructions.Length] == 'L')
+                {
+                    for (int i = 0; i < locationNodes.Length; i++)
+                    {
+                        locationNodes[i] = directions[locationNodes[i]].left;
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < locationNodes.Length; i++)
+                    {
+                        locationNodes[i] = directions[locationNodes[i]].right;
+                    }
+                }
+
+                distance++;
+
+                Console.WriteLine($"Locations after step {distance}: ");
+                foreach (var node in locationNodes)
+                {
+                    Console.Write(node + " ");
+                }
+            }
+
+            return distance;
+        }
+
+        private bool AllNodesEndWithZ(string[] locationNodes)
+        {
+            return locationNodes.Where(node => node.Last() == 'Z').Count() == locationNodes.Length;
         }
     }
 }
