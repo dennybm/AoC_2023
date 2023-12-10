@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1.Day9
+namespace ConsoleApp1.Extensions
 {
     internal static class ArrayExtensions
     {
@@ -18,6 +18,24 @@ namespace ConsoleApp1.Day9
             }
 
             return result;
+        }
+
+        public static int[] AddArray(this int[] a, int[] b)
+        {
+            return a.Zip(b, (x, y) => x + y).ToArray();
+        }
+
+        public static bool ArraysEqual(this int[] a, int[] b)
+        {
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (a[i] != b[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

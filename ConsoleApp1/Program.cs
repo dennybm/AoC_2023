@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using ConsoleApp1;
 using ConsoleApp1.Day1;
+using ConsoleApp1.Day10;
 using ConsoleApp1.Day2;
 using ConsoleApp1.Day3;
 using ConsoleApp1.Day4;
@@ -23,6 +24,7 @@ Dictionary<string, DayBase> days = new Dictionary<string, DayBase>()
     {"7", new Day7() },
     {"8", new Day8() },
     {"9", new Day9() },
+    {"10", new Day10() },
 };
 
 Console.WriteLine("Enter day you would like to solve:");

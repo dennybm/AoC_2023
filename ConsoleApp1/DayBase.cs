@@ -30,8 +30,6 @@ namespace ConsoleApp1
                 Console.WriteLine("The file does not exist.");
             }
 
-
-
             return result;
         }
 
