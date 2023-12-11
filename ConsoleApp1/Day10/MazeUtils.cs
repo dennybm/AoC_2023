@@ -50,8 +50,8 @@ namespace ConsoleApp1.Day10
                 {
                     ConsoleColor color = ConsoleColor.Black;
 
-                    color = loopCoords.ContainsCoord(new int[] {columnIndex, rowIndex}) ? ConsoleColor.Green : ConsoleColor.Black;
-                    color = insideBorderCoords.ContainsCoord(new int[] { columnIndex, rowIndex }) ? ConsoleColor.Magenta: color;
+                    color = loopCoords.ContainsCoord(new int[] {columnIndex, rowIndex}) ? ConsoleColor.Red : ConsoleColor.White;
+                    color = insideBorderCoords.ContainsCoord(new int[] { columnIndex, rowIndex }) ? ConsoleColor.Yellow: color;
 
                     Console.BackgroundColor = color;
 
