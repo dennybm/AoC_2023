@@ -60,6 +60,7 @@ namespace ConsoleApp1.Day12
             Console.WriteLine($"Processing line {line}, possibilities {result - lastCount}");
         }
 
+        List<BlockLookUp> BlocksLookedUpAlready = new List<BlockLookUp>();
 
         /// <summary>
         // position first block in the left most possible location
@@ -70,45 +71,78 @@ namespace ConsoleApp1.Day12
         public void TryFitBlocks(string springs, int[] blockLengths, List<int>? blockIndexes = null)
         {
             recursiveDepth++;
+            int count = 0;
+            var thisLookup = new BlockLookUp() { Springs = springs, BlockLengths = blockLengths, Permutations = count };
 
             if (blockIndexes == null)
             {
                 blockIndexes = new List<int>();
             }
 
-            // foreach sqaure that could be fit in.
-            for (int i = 0; i < springs.Length - blockLengths.Sum() - blockLengths.Length + 2; i++)
+            // var previousLookups = BlocksLookedUpAlready.Where(lookUp => lookUp.Springs.Substring(lookUp.Springs.Length-springs.Length) == springs && blockLengths.ArraysEqual(lookUp.BlockLengths));
+            var previousLookups = BlocksLookedUpAlready.Where(lookUp => lookUp.Springs.Substring(lookUp.Springs.Length-springs.Length) == springs && blockLengths.ArraysEqual(lookUp.BlockLengths));
+
+            //if (previousLookups.Count() == 0)
+            if (true)
             {
-                if (this.DoesBlockFit(springs, blockLengths[0], i))
+                // foreach sqaure that could be fit in.
+                for (int i = 0; i < springs.Length - blockLengths.Sum() - blockLengths.Length + 2; i++)
                 {
-                    // checking fit for first box at index i
-                    if (blockIndexes.Count < recursiveDepth + 1)
+                    // if the first block starts after the first '#', then break out as this is not possible.
+                    if (i > springs.IndexOf('#') && springs.IndexOf('#') != -1)
                     {
-                        blockIndexes.Add(i);
-                    }
-                    else
-                    {
-                        blockIndexes[recursiveDepth] = i;
+                        break;
                     }
 
-                    // If its the last block, increase the result, if it isn't try to fit the next box.
-                    if (blockLengths.Length == 1)
+                    // ...??#?..#?.. #...?#..###..
+                    // if the number of blocks left, is less than the number of blocks of #'s plus the number of ? remaining, break out as there are not enough spaces to put the remaining blocks.
+                    if (blockLengths.Length > springs.Substring(i).Split(".").Where(str => str.Contains('#')).Count()
+                        + springs.Substring(i).Where(c => c == '?').Count())
                     {
-                        int[] testFitLengths = this.GetBlockLengths(blockIndexes);
+                        break;
+                    }
 
-                        if (testFitLengths.ArraysEqual(topLevelBlockLengths))
+
+                    if (this.DoesBlockFit(springs, blockLengths[0], i))
+                    {
+                        // checking fit for first box at index i
+                        if (blockIndexes.Count < recursiveDepth + 1)
                         {
-                            result++;
-                            this.LogBlocksFitted(blockIndexes);
+                            blockIndexes.Add(i);
+                        }
+                        else
+                        {
+                            blockIndexes[recursiveDepth] = i;
                         }
 
-                        // Console.WriteLine($"All blocks fit, incrementing result to {result}!");
+                        // If its the last block, and there are no springs left, increase the result, if it isn't try to fit the next box.
+                        if (blockLengths.Length == 1)
+                        {
+                            // check there are no springs at the end of the array.
+                            if (springs.Substring(i + blockLengths[0]).IndexOf('#') == -1)
+                            {
+                                count++;
+                                this.LogBlocksFitted(blockIndexes);
+                            }
+
+                            // Console.WriteLine($"All blocks fit, incrementing result to {result}!");
+                        }
+                        else
+                        {
+                            TryFitBlocks(springs.Substring(i + blockLengths[0] + 1), blockLengths.Skip(1).ToArray(), blockIndexes);
+                        }
                     }
-                    else
-                    {
-                        TryFitBlocks(springs.Substring(i + blockLengths[0] + 1), blockLengths.Skip(1).ToArray(), blockIndexes);
-                    }
+
+                    thisLookup.Permutations = count;
+                    BlocksLookedUpAlready.Add(thisLookup);
                 }
+
+                result += count;
+            }
+            else
+            {
+                var prevlookup = previousLookups.First();
+                result += prevlookup.Permutations;
             }
 
             recursiveDepth--;
