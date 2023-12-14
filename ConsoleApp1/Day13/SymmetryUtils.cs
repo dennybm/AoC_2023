@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1.Day13
 {
-    internal static class SymmetryUtils
+    internal static partial class SymmetryUtils
     {
         public static int IndexOfHorrizontalSymmetry(this List<string> pattern)
         {

@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ConsoleApp1.Day13
 {
-    internal partial class Day13 : DayBase
+    internal partial class Day13
     {
-        string filePath = "D:\\Projects\\AoC_2023\\AoC_2023\\ConsoleApp1\\Day13\\inputs.txt";
-        List<List<string>> patterns = new List<List<string>>();
-
-        public override string Solve()
+        public override string SolvePart2()
         {
             int result = 0;
 
@@ -22,19 +20,19 @@ namespace ConsoleApp1.Day13
             {
                 Console.WriteLine("Checking Pattern " + i);
                 List<string> pattern = patterns[i];
-                result += this.GetPatternValue(pattern);
+                result += this.GetPatternValuePart2(pattern);
             }
 
             return result.ToString();
         }
 
-        private int GetPatternValue(List<string> pattern)
+        private int GetPatternValuePart2(List<string> pattern)
         {
-            int result = pattern.IndexOfHorrizontalSymmetry() * 100;
+            int result = pattern.IndexOfSmudgedHorrizontalSymmetry() * 100;
 
             if (result == 0)
             {
-                result =  pattern.TransposePattern().IndexOfHorrizontalSymmetry();
+                result = pattern.TransposePattern().IndexOfSmudgedHorrizontalSymmetry();
 
                 Console.WriteLine("Vertical symmetry found at: " + result);
             }
@@ -44,18 +42,6 @@ namespace ConsoleApp1.Day13
             }
 
             return result;
-        }
-
-        private void ProcessLine(string line)
-        {
-            if (string.IsNullOrEmpty(line))
-            {
-                patterns.Add(new List<string>());
-            }
-            else
-            {
-                patterns.Last().Add(line);
-            }
         }
     }
 }
