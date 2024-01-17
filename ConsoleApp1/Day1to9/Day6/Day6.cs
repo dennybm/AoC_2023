@@ -10,7 +10,7 @@ namespace ConsoleApp1.Day6
 {
     internal partial class Day6 : DayBase
     {
-        string filePath = "D:\\Projects\\AoC_2023\\AoC_2023\\ConsoleApp1\\Day6\\inputs.txt";
+        string filePath = "D:\\Projects\\AoC_2023\\AoC_2023\\ConsoleApp1\\Day1to9\\Day6\\inputs.txt";
 
         public override string Solve()
         {

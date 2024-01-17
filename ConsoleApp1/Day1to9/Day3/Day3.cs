@@ -8,7 +8,7 @@ namespace ConsoleApp1.Day3
 {
     internal class Day3 : DayBase
     {
-        string filePath = "D:\\Projects\\AoC_2023\\AoC_2023\\ConsoleApp1\\Day3\\inputs.txt";
+        string filePath = "D:\\Projects\\AoC_2023\\AoC_2023\\ConsoleApp1\\Day1to9\\Day3\\inputs.txt";
         string[] engineSchematic;
 
 

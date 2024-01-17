@@ -8,7 +8,7 @@ namespace ConsoleApp1.Day8
 {
     internal partial class Day8 : DayBase
     {
-        string filePath = "D:\\Projects\\AoC_2023\\AoC_2023\\ConsoleApp1\\Day8\\inputs.txt";
+        string filePath = "D:\\Projects\\AoC_2023\\AoC_2023\\ConsoleApp1\\Day1to9\\Day8\\inputs.txt";
 
         Dictionary<string, (string left, string right, int[] indexesChecked)>? directions;
         string? instructions;

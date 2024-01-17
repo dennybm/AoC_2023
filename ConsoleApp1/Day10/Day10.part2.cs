@@ -125,8 +125,8 @@ namespace ConsoleApp1.Day10
 
                 var previousDirection = loopDirections[loopIndex - 2];
 
-                Console.WriteLine("Pipe " + pipe.ToString());
-                Console.WriteLine("Previous direction: " + previousDirection[0] + ", " + previousDirection[1]);
+                // Console.WriteLine("Pipe " + pipe.ToString());
+                // Console.WriteLine("Previous direction: " + previousDirection[0] + ", " + previousDirection[1]);
 
                 switch (pipe)
                 {

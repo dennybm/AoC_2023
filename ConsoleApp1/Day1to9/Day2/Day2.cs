@@ -12,7 +12,7 @@ namespace ConsoleApp1.Day2
 {
     internal class Day2 : DayBase
     {
-        string filePath = "D:\\Projects\\AoC_2023\\AoC_2023\\ConsoleApp1\\Day2\\inputs.txt";
+        string filePath = "D:\\Projects\\AoC_2023\\AoC_2023\\ConsoleApp1\\Day1to9\\Day2\\inputs.txt";
         int[] parameters = new int[3] { 12, 13, 14 };
 
         public override string Solve()
