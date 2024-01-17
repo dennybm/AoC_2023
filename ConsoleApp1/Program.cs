@@ -9,6 +9,7 @@ using ConsoleApp1.Day14;
 using ConsoleApp1.Day15;
 using ConsoleApp1.Day16;
 using ConsoleApp1.Day17;
+using ConsoleApp1.Day18;
 using ConsoleApp1.Day2;
 using ConsoleApp1.Day3;
 using ConsoleApp1.Day4;
@@ -39,6 +40,7 @@ Dictionary<string, DayBase> days = new Dictionary<string, DayBase>()
     {"15", new Day15() },
     {"16", new Day16() },
     {"17", new Day17() },
+    {"18", new Day18() },
 };
 
 Console.WriteLine("Enter day you would like to solve:");
